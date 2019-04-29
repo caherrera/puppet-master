@@ -13,12 +13,33 @@
 # Sample Usage:
 #
 # This class file is not called directly
-class master::config {
+class master::config (
+  $service_config_file  = $master::service_config_file,
+  $service_enable       = $master::service_enable,
+  $service_ensure       = $master::service_ensure,
+  $java_bin             = $master::java_bin,
+  $memory_allocation    = $master::memory_allocation,
+  $java_args            = $master::java_args,
+  $tk_args              = $master::tk_args,
+  $user                 = $master::user,
+  $group                = $master::group,
+  $install_dir          = $master::install_dir,
+  $config               = $master::config,
+  $bootstrap_config     = $master::bootstrap_config,
+  $service_stop_retries = $master::service_stop_retries,
+  $start_timeout        = $master::start_timeout,
+  $reload_timeout       = $master::reload_timeout,
+
+
+) {
 
   assert_private()
 
-  file { $master::params::service_config_file:
-    ensure  => $master::params::service_enable,
+  file { $service_config_file:
+    ensure  => $service_ensure ? {
+      running => 'present',
+      default => 'absent'
+    },
     mode    => '0644',
     content => template('master/puppetserver-config.erb')
   }
