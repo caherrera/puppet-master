@@ -26,15 +26,6 @@ class master::service(
 
   if $service_manage {
     case $facts['os']['name'] {
-      'OpenBSD': {
-        service { $service_name:
-          ensure     => $service_ensure,
-          enable     => $service_enable,
-          flags      => $service_flags,
-          hasstatus  => true,
-          hasrestart => true,
-        }
-      }
       default: {
         service { $service_name:
           ensure     => $service_ensure,

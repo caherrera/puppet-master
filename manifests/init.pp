@@ -22,8 +22,8 @@ class master (
   String $java_bin              = $master::params::java_bin,
   String $memory_allocation     = $master::params::memory_allocation,
   String $tk_args               = $master::params::tk_args,
-  Tuple $java_args              = $master::params::java_args,
-  Tuple $bootstrap_config       = $master::params::bootstrap_config,
+  Array $java_args              = $master::params::java_args,
+  Array $bootstrap_config       = $master::params::bootstrap_config,
   Numeric $service_stop_retries = $master::params::service_stop_retries,
   Numeric $start_timeout        = $master::params::start_timeout,
   Numeric $reload_timeout       = $master::params::reload_timeout,
@@ -40,11 +40,16 @@ class master (
 
     if $memory_in_megabytes < 512 {
       fail('Not enough available RAM. Minimun for puppet is 512MB')
+    }else {
+      notice("setting puppet master using ${memory_allocation} RAM")
     }
 
   }
   contain 'master::install'
   contain 'master::config'
   contain 'master::service'
+
+  Class['master::install'] -> Class['master::config'] ~> Class['master::service']
+  Class['master::install'] ~> Class['master::service']
 
 }
