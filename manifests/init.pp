@@ -29,6 +29,17 @@ class master (
   Numeric $reload_timeout       = $master::params::reload_timeout,
 
 
+  ### START puppet.conf Configuration ###
+  Array $dns_alt_names          = $master::params::dns_alt_names,
+  String $certname              = $master::params::certname,
+  String $server                = $master::params::server,
+  String $environment           = $master::params::environment,
+  String $runinterval           = $master::params::runinterval,
+  Boolean $strict_variables     = $master::params::strict_variables,
+
+  ### END puppet.conf Configuration ###
+
+
 ) inherits master::params {
 
   if $memory_allocation !~ /[1-9]{1,3}[mg]/ {

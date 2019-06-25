@@ -33,8 +33,6 @@ class master::config (
 
 ) {
 
-  assert_private()
-
   file { $service_config_file:
     ensure  => $service_ensure ? {
       running => 'present',
@@ -42,6 +40,19 @@ class master::config (
     },
     mode    => '0644',
     content => template('master/puppetserver-config.erb')
+  }
+
+  class { 'master::config::puppet':
+    main   => {
+      certname         => $master::certname,
+      server           => $master::server,
+      environment      => $master::environment,
+      runinterval      => $master::runinterval,
+      strict_variables => $master::strict_variables,
+    },
+    master => {
+      'dns_alt_names' => $master::dns_alt_names.join(',')
+    }
   }
 
 
