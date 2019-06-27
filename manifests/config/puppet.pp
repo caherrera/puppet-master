@@ -18,7 +18,8 @@ class master::config::puppet (
   $_main = $default_main_section + $main
 
   file { $master::params::puppetconf:
-    content => template('master/puppet.conf.erb')
+    content => template('master/puppet.conf.erb'),
+    notify  => Class[master::config::ca]
   }
 
 
