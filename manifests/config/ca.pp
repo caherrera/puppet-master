@@ -4,9 +4,11 @@ class master::config::ca () {
 
   exec { 'puppetserver-ca-setup':
 
-    path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/opt/puppetlabs/bin',
-    command => "rm -rf * && /opt/puppetlabs/bin/puppetserver ca setup",
-    cwd     => $ca_folder
+    path        => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/opt/puppetlabs/bin',
+    command     => "rm -rf * && /opt/puppetlabs/bin/puppetserver ca setup",
+    cwd         => $ca_folder,
+    refreshonly => true,
+    subscribe   => File[$master::params::puppetconf]
 
   }
 
