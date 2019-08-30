@@ -8,8 +8,9 @@
 <% @_main.each do |key,value|   -%>
   <%= key %>=<%= value %>
 <% end -%>
-
+<%- if !@agent then %>
 [master]
 <% @_master.each do |key,value|   -%>
   <%= key %>=<%= value %>
+<% end -%>
 <% end -%>
