@@ -19,8 +19,6 @@ class master::params (
   $service_manage              = true,
   ### END Service Configuration ###
 
-  $memory_allocation           = '2g',
-
   $user                        = "puppet",
   $group                       = "puppet",
   $install_dir                 = "/opt/puppetlabs/server/apps/puppetserver",
@@ -36,8 +34,8 @@ class master::params (
 
 
   String $puppetconf           = '/etc/puppetlabs/puppet/puppet.conf',
-  Array[String] $dns_alt_names = ['puppetmaster01', 'puppetmaster01.example.com', 'puppet', 'puppet.example.com'],
-  String $certname             = 'puppetmaster01.example.com',
+  Array[String] $dns_alt_names = ['puppetmaster01', 'puppetmaster01.localdomain.com', 'puppet', 'puppet.example.com'],
+  String $certname             = "${::hostname}.localdomain",
   String $server               = 'puppet',
   String $environment          = 'production',
   String $runinterval          = '1h',
@@ -45,6 +43,12 @@ class master::params (
 
 
 ) {
+  $t = $facts['memory']['system']['total_bytes']
+  if $t < 1050904576 {
+    fail('System has not enough ram memory')
+  }else {
+    $memory_allocation = master::mallocation($t)
+  }
 
   case $::osfamily {
     'debian': {

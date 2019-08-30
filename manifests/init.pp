@@ -42,19 +42,24 @@ class master (
 
 ) inherits master::params {
 
-  if $memory_allocation !~ /[1-9]{1,3}[mg]/ {
-    $memory_size = regsubst($memory_allocation, /(\d+)([mg])/, '\1')
-    $memory_in_megabytes = regsubst($memory_allocation, /(\d+)([mg])/, '\2') ? {
-      'm' => $memory_size,
-      'g' => $memory_size * 1024
-    }
+  if ($memory_allocation != $master::params::memory_allocation) {
 
-    if $memory_in_megabytes < 512 {
-      fail('Not enough available RAM. Minimun for puppet is 512MB')
-    }else {
-      notice("setting puppet master using ${memory_allocation} RAM")
-    }
+    if $memory_allocation !~ /[1-9]{1,3}[mg]/ {
+      $memory_size = regsubst($memory_allocation, /(\d+)([mg])/, '\1')
+      $memory_in_megabytes = regsubst($memory_allocation, /(\d+)([mg])/, '\2') ? {
+        'm' => $memory_size,
+        'g' => $memory_size * 1024
+      }
 
+      if $memory_in_megabytes < 512 {
+        fail('Not enough available RAM. Minimun for puppet is 512MB')
+      }else {
+        notice("setting puppet master using ${memory_allocation} RAM")
+      }
+
+    }
+  }else{
+    alert('using default Memory Allocation value')
   }
   contain 'master::install'
   contain 'master::config'

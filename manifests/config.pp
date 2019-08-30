@@ -55,6 +55,7 @@ class master::config (
     }
   }
 
+  ~> class { 'master::config::ca': }
 
 
 }
