@@ -6,11 +6,12 @@ class master::config::puppet (
 
   if (!$agent) {
     $default_master_section = {
-      'vardir'  => '/opt/puppetlabs/server/data/puppetserver',
-      'logdir'  => '/var/log/puppetlabs/puppetserver',
-      'rundir'  => '/var/run/puppetlabs/puppetserver',
-      'pidfile' => '/var/run/puppetlabs/puppetserver/puppetserver.pid',
-      'codedir' => '/etc/puppetlabs/code',
+      'vardir'   => '/opt/puppetlabs/server/data/puppetserver',
+      'logdir'   => '/var/log/puppetlabs/puppetserver',
+      'rundir'   => '/var/run/puppetlabs/puppetserver',
+      'pidfile'  => '/var/run/puppetlabs/puppetserver/puppetserver.pid',
+      'codedir'  => '/etc/puppetlabs/code',
+      'autosign' => true,
 
 
     }
@@ -21,7 +22,9 @@ class master::config::puppet (
 
   $_main = $default_main_section + $main
 
-  file { $master::params::puppetconf:
+  include master::config::conf
+
+  master::config::add { "master":
     content => template('master/puppet.conf.erb'),
 
   }
