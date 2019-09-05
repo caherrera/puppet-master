@@ -45,7 +45,7 @@ class master::params (
 ) {
   $t = $facts['memory']['system']['total_bytes']
   if $t < 1050904576 {
-    fail('System has not enough ram memory')
+    $memory_allocation = 0
   }else {
     $memory_allocation = master::mallocation($t)
   }
