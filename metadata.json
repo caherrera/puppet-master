@@ -1,13 +1,11 @@
 {
   "name": "caherrera-master",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "author": "Carlos Herrera",
   "summary": "",
   "license": "Apache-2.0",
   "source": "",
-  "dependencies": [
-
-  ],
+  "dependencies": [],
   "operatingsystem_support": [
     {
       "operatingsystem": "Debian",
