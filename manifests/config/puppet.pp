@@ -2,7 +2,7 @@ class master::config::puppet (
   Boolean $agent = false,
   Hash $main     = {},
   Hash $master   = {},
-) {
+) inherits master::params {
 
   if (!$agent) {
     $default_master_section = {
@@ -28,6 +28,5 @@ class master::config::puppet (
     content => template('master/puppet.conf.erb'),
 
   }
-
 
 }
