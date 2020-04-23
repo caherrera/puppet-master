@@ -23,6 +23,9 @@ class master::install {
     }
     'ubuntu': {
 
+    },
+    'RedHat': {
+
     }
     default: { fail("OS Family is not allowed ${::osfamily}") } # apply the generic class
 
