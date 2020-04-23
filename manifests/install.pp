@@ -24,7 +24,7 @@ class master::install {
     }
     'ubuntu': {
       notice('Instaling to ubuntu\'s family')
-    },
+    }
     'RedHat': {
       notice('Instaling to ubuntu\'s family')
     }
