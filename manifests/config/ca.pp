@@ -8,7 +8,7 @@ class master::config::ca () {
     command     => "rm -rf * && /opt/puppetlabs/bin/puppetserver ca setup",
     cwd         => $ca_folder,
     refreshonly => true,
-    subscribe   => File[$master::params::puppetconf]
+    subscribe   => Class[master::config::puppet]
 
   }
 
