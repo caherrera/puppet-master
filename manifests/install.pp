@@ -8,7 +8,7 @@ class master::install {
 
   case $::osfamily {
     'debian': {
-      case $operatingsystemmajrelease {
+      case $::operatingsystemmajrelease {
         '8': {
           class { 'apt': }
           apt::backports { 'jessie-backports':
@@ -19,13 +19,14 @@ class master::install {
           }
           Class['apt'] -> Class['java']
         }
+      default:{}
       }
     }
     'ubuntu': {
-
+      notice('Instaling to ubuntu\'s family')
     },
     'RedHat': {
-
+      notice('Instaling to ubuntu\'s family')
     }
     default: { fail("OS Family is not allowed ${::osfamily}") } # apply the generic class
 

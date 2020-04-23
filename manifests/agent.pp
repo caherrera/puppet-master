@@ -14,10 +14,8 @@ class master::agent (
     agent  => true,
     master => $master,
     main   => $main,
-
-
-  } ~>
-
+  }
+~>
   class { master::service:
 
     service_name    => 'puppet',
@@ -29,7 +27,5 @@ class master::agent (
 
 
   }
-
-  
 
 }
