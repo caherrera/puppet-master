@@ -40,6 +40,12 @@ class master::params (
   String $environment          = 'production',
   String $runinterval          = '1h',
   Boolean $strict_variables    = false,
+  String  $vardir               = "/opt/puppetlabs/server/data/puppetserver",
+  String  $logdir               = "/var/log/puppetlabs/puppetserver",
+  String  $rundir               = "/var/run/puppetlabs/puppetserver",
+  String  $pidfile              = "/var/run/puppetlabs/puppetserver/puppetserver.pid",
+  String  $codedir              = "/etc/puppetlabs/code",
+  Boolean $autosign            = true,
 
 
 ) {

@@ -51,7 +51,15 @@ class master::config (
       strict_variables => $master::strict_variables,
     },
     master => {
-      'dns_alt_names' => $master::dns_alt_names.join(',')
+      'dns_alt_names' => $master::dns_alt_names.join(','),
+      vardir          => $master::vardir,
+      logdir          => $master::logdir,
+      rundir          => $master::rundir,
+      pidfile         => $master::pidfile,
+      codedir         => $master::codedir,
+      autosign        => $master::autosign,
+
+
     }
   }
 

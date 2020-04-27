@@ -36,6 +36,13 @@ class master (
   String $environment           = $master::params::environment,
   String $runinterval           = $master::params::runinterval,
   Boolean $strict_variables     = $master::params::strict_variables,
+  String  $vardir               = $master::params::vardir,
+  String  $logdir               = $master::params::logdir,
+  String  $rundir               = $master::params::rundir,
+  String  $pidfile              = $master::params::pidfile,
+  String  $codedir              = $master::params::codedir,
+  Boolean $autosign             = $master::params::autosign,
+
 
   ### END puppet.conf Configuration ###
 
@@ -58,7 +65,7 @@ class master (
       }
 
     }
-  }else{
+  }else {
     alert('using default Memory Allocation value')
   }
   contain 'master::install'
